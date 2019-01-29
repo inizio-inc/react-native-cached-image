@@ -74,11 +74,11 @@ module.exports = (defaultOptions = {}, urlCache = MemoryCache, fs = fsUtils, pat
          * @param options
          * @returns {Promise}
          */
-        downloadAndCacheUrl(url, options = {}) {
+        downloadAndCacheUrl(url, options = {}, progressCallback) {
             return cacheUrl(
                 url,
                 options,
-                filePath => fs.downloadFile(url, filePath, options.headers)
+                filePath => fs.downloadFile(url, filePath, options.headers, progressCallback)
             );
         },
 

@@ -97,6 +97,12 @@ module.exports = {
                         path: tmpFile
                     })
                     .fetch('GET', fromUrl, headers)
+                    .progress((received, total) => {
+                        const percent = received / total
+                        if(progressCallback){
+                            progressCallback(percent);
+                        }
+                    })
                     .then(res => {
                         if (res.respInfo.status === 304) {
                             return Promise.resolve(toFile);
@@ -113,7 +119,7 @@ module.exports = {
                                 if (res.respInfo.headers['content-length'] && res.respInfo.headers['content-length'] != fileStats.size) {
                                     return Promise.reject();
                                 }
-                                
+
                                 if (res.respInfo.headers['Content-Length'] && res.respInfo.headers['Content-Length'] != fileStats.size) {
                                     return Promise.reject();
                                 }
