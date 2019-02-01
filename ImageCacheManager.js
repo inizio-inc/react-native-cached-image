@@ -78,7 +78,7 @@ module.exports = (defaultOptions = {}, urlCache = MemoryCache, fs = fsUtils, pat
             return cacheUrl(
                 url,
                 options,
-                filePath => fs.downloadFile(url, filePath, options.headers, progressCallback)
+                filePath => fs.downloadFile(url, progressCallback, filePath, options.headers)
             );
         },
 
